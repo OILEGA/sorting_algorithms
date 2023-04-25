@@ -1,31 +1,31 @@
 #include "sort.h"
 
-void num_swap(int *x, int *y);
-void max_heap(int *array, size_t size, size_t base, size_t root);
+void swap_ints(int *a, int *b);
+void max_heapify(int *array, size_t size, size_t base, size_t root);
 void heap_sort(int *array, size_t size);
 
 /**
- * num_swap - Swaps two numbers in an array.
- * @x: The Ist number to swap.
- * @y: The 2nd number to swap.
+ * swap_ints - Swap two integers in an array.
+ * @a: The first integer to swap.
+ * @b: The second integer to swap.
  */
-void num_swap(int *x, int *y)
+void swap_ints(int *a, int *b)
 {
 	int tmp;
 
-	tmp = *x;
-	*x = *y;
-	*y = tmp;
+	tmp = *a;
+	*a = *b;
+	*b = tmp;
 }
 
 /**
- * max_heap - Turns a binary tree into a complete binary heap.
+ * max_heapify - Turn a binary tree into a complete binary heap.
  * @array: An array of integers representing a binary tree.
  * @size: The size of the array/tree.
  * @base: The index of the base row of the tree.
  * @root: The root node of the binary tree.
  */
-void max_heap(int *array, size_t size, size_t base, size_t root)
+void max_heapify(int *array, size_t size, size_t base, size_t root)
 {
 	size_t left, right, large;
 
@@ -40,35 +40,35 @@ void max_heap(int *array, size_t size, size_t base, size_t root)
 
 	if (large != root)
 	{
-		num_swap(array + root, array + large);
+		swap_ints(array + root, array + large);
 		print_array(array, size);
-		max_heap(array, size, base, large);
+		max_heapify(array, size, base, large);
 	}
 }
 
 /**
- * heap_sort - Sorts an array of integers in ascending
+ * heap_sort - Sort an array of integers in ascending
  *             order using the heap sort algorithm.
  * @array: An array of integers.
  * @size: The size of the array.
  *
- * Description: Implements the shift-down heap sort
+ * Description: Implements the sift-down heap sort
  * algorithm. Prints the array after each swap.
  */
 void heap_sort(int *array, size_t size)
 {
-	int i;
+	int y;
 
 	if (array == NULL || size < 2)
 		return;
 
-	for (i = (size / 2) - 1; i >= 0; i--)
-		max_heap(array, size, size, i);
+	for (y = (size / 2) - 1; y >= 0; y--)
+		max_heapify(array, size, size, y);
 
-	for (i = size - 1; i > 0; i--)
+	for (y = size - 1; y > 0; y--)
 	{
-		num_swap(array, array + i);
+		swap_ints(array, array + y);
 		print_array(array, size);
-		max_heap(array, size, i, 0);
+		max_heapify(array, size, y, 0);
 	}
-
+}
