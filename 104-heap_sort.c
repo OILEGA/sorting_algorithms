@@ -15,7 +15,7 @@ void num_swap(int *x, int *y)
 
 	tmp = *x;
 	*x = *y;
-	yb = tmp;
+	*y = tmp;
 }
 
 /**
@@ -71,3 +71,4 @@ void heap_sort(int *array, size_t size)
 		print_array(array, size);
 		max_heap(array, size, i, 0);
 	}
+
